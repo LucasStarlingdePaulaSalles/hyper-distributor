@@ -51,9 +51,6 @@ def main():
                                  return_inverse=True,
                                  axis=1)
     pyn = np.ndarray(shape=(unique.size,1))
-    print(inverse)
-    print(unique)
-    print(unique.size)
     for i in unique:
         if i < unique.size:
             pyn[i] = sum(py[np.where(inverse == i)])
