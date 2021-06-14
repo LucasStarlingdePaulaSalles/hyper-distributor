@@ -4,6 +4,7 @@ import pandas as pd
 import numpy as np
 import sys
 from fractions import Fraction
+np.seterr(divide='ignore', invalid='ignore')
 
 help = "File format:\n<x-prior-lenght>,<y-output-lenght>\n<prior-array>\n<x-by-y-channel-matrix>"
 
@@ -38,8 +39,45 @@ def main():
     joint = cmatrix*prior
     print(f"Joint matrix:\n{joint}\n")
     py = np.sum(joint,axis=0)
+    joint = np.delete(joint,np.where(py == np.array([0.0])),1)
+    py = py[np.where(py != np.array([0.0]))]
     py.shape = (py.size,1)
     print(f"Py:\n{py}\n")
-    posterior = np.transpose(joint)/py
-    print(f"Posterior distribuition(xi,PX|yi):\n{np.transpose(posterior)}\n")
+    posterior = joint.T/py
+    posterior = posterior.T
+    print(f"Posterior distribuition(xi,PX|yi):\n{posterior}\n")
+    hyper, unique, inverse = np.unique(posterior,
+                                 return_index=True,
+                                 return_inverse=True,
+                                 axis=1)
+    pyn = np.ndarray(shape=(unique.size,1))
+    print(inverse)
+    print(unique)
+    print(unique.size)
+    for i in unique:
+        if i < unique.size:
+            pyn[i] = sum(py[np.where(inverse == i)])
+    print(f"P[X|Y]:\n{pyn}\n")
+    print(f"Hyper distribuition(xi,PX|yi):\n{hyper}\n")
+
+
+def unique():
+    data = np.array([[1,8,3,3,1],
+                     [1,8,9,9,1],
+                     [1,8,3,3,1],])
+    hyper, unique, inverse = np.unique(data,
+                                 return_index=True,
+                                 return_inverse=True,
+                                 axis=1)
+    py = np.array([1,2,3,4,5])
+    pyn = np.ndarray(shape=(unique.size,1))
+    for i in unique:
+        pyn[i] = sum(py[np.where(inverse == i)])
+    print(pyn)
+
+def delete():
+    data = np.array([[1,8,3,3,1],
+                     [1,8,9,9,1],
+                     [1,8,3,3,1],])
+    print(np.delete(data,[1,2],1))
 main()
