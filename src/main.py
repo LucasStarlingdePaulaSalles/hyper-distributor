@@ -42,7 +42,7 @@ def main():
     joint = np.delete(joint,np.where(py == np.array([0.0])),1)
     py = py[np.where(py != np.array([0.0]))]
     py.shape = (py.size,1)
-    print(f"Py:\n{py}\n")
+    print(f"P[Y]:\n{py}\n")
     posterior = joint.T/py
     posterior = posterior.T
     print(f"Posterior distribuition(xi,PX|yi):\n{posterior}\n")
@@ -54,7 +54,7 @@ def main():
     for i in unique:
         if i < unique.size:
             pyn[i] = sum(py[np.where(inverse == i)])
-    print(f"P[X|Y]:\n{pyn}\n")
+    print(f"PHyper[Y]:\n{pyn}\n")
     print(f"Hyper distribuition(xi,PX|yi):\n{hyper}\n")
 
 main()
