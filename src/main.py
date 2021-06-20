@@ -65,8 +65,7 @@ def main():
 
     py.shape = (py.size,1) #makes the output distribuition a column vector instead of a simple array
     #calculate postrior distribution matrix
-    posterior = joint.T/py
-    posterior = posterior.T
+    posterior = joint/py.T
     print(f"Posterior distribuition(xi,Pxi|Y):\n{posterior}\n")
 
     #calculate hyper distribuiton matrix by discarting non unique colums and adding their respective probabilities together
