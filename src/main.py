@@ -4,6 +4,7 @@ import pandas as pd
 import numpy as np
 import sys
 from fractions import Fraction
+import latex_converter
 np.seterr(divide='ignore', invalid='ignore')
 
 help = "File format:\n<x-prior-lenght>,<y-output-lenght>\n<prior-array>\n<x-by-y-channel-matrix>"
@@ -81,4 +82,5 @@ def main():
     print(f"PHyper[Y]:\n{pyn}\n")
     print(f"Hyper distribuition(xi,PX|yi):\n{hyper}\n")
 
-main()
+if __name__ == "__main__":
+    main()
