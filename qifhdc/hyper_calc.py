@@ -1,10 +1,7 @@
-from os import close
-from re import S
-import pandas as pd
 import numpy as np
 import sys
 from fractions import Fraction
-import latex_converter.latex_converter as lc
+from .latex_converter import *
 np.seterr(divide='ignore', invalid='ignore')
 
 help = "File format:\n<channel-label>\n<x-prior-lenght>,<y-output-lenght>\n<prior-array>\n<x-by-y-channel-matrix>"
@@ -30,44 +27,44 @@ flags = {
 
 def print_header(x: int, y: int):
     if latex:
-        lc.latex_header(x,y)
+        latex_header(x,y)
     else:
         print(f"|X| = {x}")
         print(f"|Y| = {y}")
         
 def print_prior(prior: np.ndarray):
     if latex:
-        lc.latex_array(prior,"\\pi")
+        latex_array(prior,"\\pi")
     else:
         print(f"Prior distribution:\n{prior}\n")
     
 def print_channel(cmatrix: np.ndarray, clabel: str):
     if latex:
-        lc.to_latex(f"Channel {clabel} matrix", clabel, cmatrix)
+        to_latex(f"Channel {clabel} matrix", clabel, cmatrix)
     else:
         print(f"Channel matrix:\n{cmatrix}\n")
 
 def print_joint(jmatrix: np.ndarray):
     if latex:
-        lc.to_latex(f"Joint matrix", "J", jmatrix)
+        to_latex(f"Joint matrix", "J", jmatrix)
     else:
         print(f"Joint matrix:\n{jmatrix}\n")
 
 def print_yprob(py: np.ndarray):
     if latex:
-        lc.latex_array(py,"p_\\mathsf{Y}")
+        latex_array(py,"p_\\mathsf{Y}")
     else:
         print(f"P[Y]:\n{py}\n")
 
 def print_posterior(pmatrix: np.ndarray):
     if latex:
-        lc.to_latex(f"Posterior matrix", "", pmatrix, type="posterior")
+        to_latex(f"Posterior matrix", "", pmatrix, type="posterior")
     else:
         print(f"Posterior distribuition(xi,Pxi|Y):\n{pmatrix}\n")
 
 def print_hyper(hmatrix: np.ndarray, pyn: np.ndarray, clabel: str):
     if latex:
-        lc.to_latex(f"Hyper Distribution", clabel, hmatrix, type="hyper", Y=pyn)
+        to_latex(f"Hyper Distribution", clabel, hmatrix, type="hyper", Y=pyn)
     else:
         print(f"PHyper[Y]:\n{pyn}\n")
         print(f"Hyper distribuition(xi,PX|yi):\n{hmatrix}\n")    
