@@ -4,7 +4,9 @@ from fractions import Fraction
 from .latex_converter import *
 np.seterr(divide='ignore', invalid='ignore')
 
-help = "File format:\n<channel-label>\n<x-prior-lenght>,<y-output-lenght>\n<prior-array>\n<x-by-y-channel-matrix>"
+help_flag = "pyqif flags:\n--help,-h\tprint this\n--verbose,-v\trun in verbose mode\n--latex,-l\toutput in latexformat\n"
+help_file = "Execution from file redirection is highly recommended.\n\n pyqif < PATH/TO/FILE\n\n File format:\n<channel-label>\n<x-prior-lenght> <y-output-lenght>\n<prior-array>\n<x-by-y-channel-matrix>"
+help = f"pyqif help:\n{help_flag}\n{help_file}"
 verbose = False
 latex = False
 def set_verbose():
@@ -120,7 +122,7 @@ def hyper(clabel: str, x: int, y: int, prior: np.ndarray, cmatrix: np.ndarray):
 
 
 def main():
-     # parsing argument
+    # parsing argument
     args = sys.argv[1:]
     for arg in args:
         if arg not in flags:
@@ -128,6 +130,8 @@ def main():
             return
         func = flags[arg]
         func()
+        if arg == "-h" or arg == "--help":
+            return
 
     if verbose: print("Channel label (ex: C):", end=" ")
     chan_label = input()
