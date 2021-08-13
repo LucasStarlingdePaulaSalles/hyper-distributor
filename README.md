@@ -27,15 +27,15 @@ pyqif --help
 ```
 
 ### Verbose
-Activates verbose execution mode
+Activates verbose execution mode.
 ```
 pyqif --verbose
 ```
 
 ### Latex
-Switches output type to latex. The latex code format is appropriate for markdown documents that `$$` as math block dellimiters.
+Switches output type to latex. The latex code format is appropriate for markdown documents that use `$$` as math block dellimiters.
 ```
-pyqif -l
+pyqif --latex
 ```
 
 ## Examples
@@ -60,7 +60,7 @@ pyqif  < file
 
 ### Latex ooutput
 
-Executing tool with redirected input and output. In this scenario the *test.py* file will cointains the formatted results.
+Executing tool with redirected input and output. In this scenario the *test.md* file will cointains the formatted results.
 ```
 pyqif -l < file > test.md
 ```

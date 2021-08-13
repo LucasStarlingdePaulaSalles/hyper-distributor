@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="pyqif",
-    version="0.0.2",
+    version="0.0.5",
     author="Lucas Starling",
     author_email="lucastarling1@gmail.com",
     description="A tool for calculating the hyper distribution from pushing a prior into a channel. Quantitative Information Flow.",
